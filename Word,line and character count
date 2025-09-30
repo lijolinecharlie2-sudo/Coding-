@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+// Function to count words, lines, and characters
+void countWordsLinesCharacters(char *str, int *words, int *lines, int *characters) {
+    *words = 0;
+    *lines = 0;
+    *characters = 0;
+    int inWord = 0;
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        (*characters)++;
+
+        if (isspace(str[i])) {
+            inWord = 0;
+        } else if (!inWord) {
+            inWord = 1;
+            (*words)++;
+        }
+
+        if (str[i] == '\n') {
+            (*lines)++;
+        }
+    }
+
+    // Count last line if not empty
+    if (*characters > 0 && str[*characters - 1] != '\n') {
+        (*lines)++;
+    }
+}
+
+int main() {
+    char str[1000];
+    printf("Enter a string (type '~' to finish input):\n");
+    scanf("%
