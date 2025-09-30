@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_SUBJECTS 10
+#define MAX_STUDENTS 50
+
+// Structure for student
+struct Student {
+    char name[50];
+    int rollNo;
+    float marks[MAX_SUBJECTS];
+    float total;
+    float average;
+    char grade;
+};
+
+// Function to calculate grade
+char calculateGrade(float avg) {
+    if (avg >= 90) return 'A';
+    else if (avg >= 80) return 'B';
+    else if (avg >= 70) return 'C';
+    else if (avg >= 60) return 'D';
+    else if (avg >= 50) return 'E';
+    else return 'F';
+}
+
+// Function to input student details
+void inputStudent(struct Student *s, int subjects) {
+    printf("\nEnter student name: ");
+    scanf(" %[^\n]", s->name);   // take string with spaces
+    printf("Enter roll number: ");
+    scanf("%d", &s->rollNo);
+
+    s->total = 0;
+    for (int i = 0; i < subjects; i++) {
+        printf("Enter marks in subject %d: ", i + 1);
+        scanf("%f", &s->marks[i]);
+        s->total += s->marks[i];
+    }
+
+    s->average = s->total / subjects;
+    s->grade = calculateGrade(s->average);
+}
+
+// Function to display student details
+void displayStudent(struct Student s, int subjects) {
+    printf("\n--- Student Report ---\n");
+    printf("Name      : %s\n", s.name);
+    printf("Roll No   : %d\n", s.rollNo);
+
+    for (int i = 0; i < subjects; i++) {
+        printf("Subject %d Marks: %.2f\n", i + 1, s.marks[i]);
+    }
+
+    printf("Total     : %.2f\n", s.total);
+    printf("Average   : %.2f\n", s.average);
+    printf("Grade     : %c\n", s.grade);
+}
+
+int main() {
+    struct Student students[MAX_STUDENTS];
+    int numStudents, numSubjects;
+
+    printf("Enter number of students: ");
+    scanf("%d", &numStudents);
+    printf("Enter number of subjects: ");
+    scanf("%d", &numSubjects);
+
+    // Input student details
+    for (int i = 0; i < numStudents; i++) {
+        printf("\nEnter details of student %d:\n", i + 1);
+        inputStudent(&students[i], numSubjects);
+    }
+
+    // Display student reports
+    printf("\n===== Student Reports =====\n");
+    for (int i = 0; i < numStudents; i++) {
+        displayStudent(students[i], numSubjects);
+    }
+
+    return 0;
+}
