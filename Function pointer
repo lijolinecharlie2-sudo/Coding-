@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+// Function definitions
+int add(int a, int b) { return a + b; }
+int subtract(int a, int b) { return a - b; }
+int multiply(int a, int b) { return a * b; }
+int divide(int a, int b) { return (b != 0) ? a / b : 0; }
+
+// Typedef for function pointer
+typedef int (*operation)(int, int);
+
+int main() {
+    int choice, x, y, result;
+    
+    // Array of function pointers
+    operation ops[4] = {add, subtract, multiply, divide};
+
+    do {
+        printf("\n===== Calculator Menu =====\n");
+        printf("1. Add\n");
+        printf("2. Subtract\n");
+        printf("3. Multiply\n");
+        printf("4. Divide\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        if (choice >= 1 && choice <= 4) {
+            printf("Enter two numbers: ");
+            scanf("%d %d",
